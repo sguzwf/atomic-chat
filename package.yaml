@@ -1,0 +1,54 @@
+name: atomic-chat
+version: '0.1.0.0'
+author: <Author>
+maintainer: <Email>
+license: BSD3
+default-extensions:
+- RecordWildCards
+- ViewPatterns
+- MultiWayIf
+- LambdaCase
+- BangPatterns
+- OverloadedStrings
+- OverloadedLists
+- NoMonomorphismRestriction
+- ScopedTypeVariables
+- FlexibleContexts
+- FlexibleInstances
+- MultiParamTypeClasses
+- StandaloneDeriving
+- TypeOperators
+- DataKinds
+- RoleAnnotations
+- RankNTypes
+- TypeFamilies
+- DeriveGeneric
+- DeriveAnyClass
+- DeriveDataTypeable
+- TemplateHaskell
+- ImplicitParams
+- CPP
+- NoImplicitPrelude
+dependencies:
+- base >=4.8
+- atomic ==4.0.*
+- text
+executables:
+  atomic-chat:
+    main: Main
+    source-dirs: src
+    ghc-options: -O2
+    when:
+    - condition: impl(ghcjs -any)
+      then:
+        cpp-options: -DGHCJS_BROWSER -DGHCJS_BUSY_YIELD=100 -DGHCJS_SCHED_QUANTUM=1
+        dependencies:
+        - ghcjs-base
+      else:
+        ghc-options:
+        - -O2
+        - -threaded
+        - -rtsopts
+        - -with-rtsopts=-N
+        dependencies:
+        - network

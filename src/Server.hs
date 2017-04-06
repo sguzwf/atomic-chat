@@ -12,7 +12,7 @@ import Data.Text.IO as T
 runApp = run Population {..}
   where
     key = $(this)
-    ip = "10.0.1.18"
+    ip = "127.0.0.1"
     port = 8080
     build = return
     prime = liftIO $ do

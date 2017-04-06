@@ -7,7 +7,7 @@ server = Mediator {..}
     key = $(this)
     build base = do
 #ifdef __GHCJS__
-      return (ws "10.0.1.18" 8080 *:* base)
+      return (ws "127.0.0.1" 8080 *:* base)
 #else
       ws <- websocket unlimited
       return (state ws *:* base)
@@ -16,6 +16,6 @@ server = Mediator {..}
 #ifdef __GHCJS__
       wsInitialize
 #else
-      initializeClientWS "10.0.1.18" 8080 "/"
+      initializeClientWS "127.0.0.1" 8080 "/"
 #endif
       return ()

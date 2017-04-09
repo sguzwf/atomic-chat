@@ -20,5 +20,5 @@ packages:
       - ef-base
   - location:
       git: https://github.com/grumply/atomic.git
-      commit: 95b37676155176ce2686ac3d026f7edea1c7e4dd
+      commit: 08eff1cca5d2f689709fd76e159454aceac79750
   - '.'

@@ -21,4 +21,3 @@ _Head = static "Head" $
   head
     [ title "Atomic Chat"
     ]
-

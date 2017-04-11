@@ -33,22 +33,42 @@ dependencies:
 - base >=4.8
 - atomic ==4.0.*
 - text
+flags:
+  devel:
+    description: 'Compile without optimizations for speedier development.'
+    manual: false
+    default: false
 executables:
   atomic-chat:
     main: Main
     source-dirs: src
-    ghc-options: -O2
     when:
     - condition: impl(ghcjs -any)
       then:
         cpp-options: -DGHCJS_BROWSER -DGHCJS_BUSY_YIELD=100 -DGHCJS_SCHED_QUANTUM=1
         dependencies:
-        - ghcjs-base
+          - ghcjs-base
+        when:
+          - condition: flag(devel)
+            then:
+              ghc-options:
+              - -rtsopts
+            else:
+              ghc-options:
+              - -O2
+              - -threaded
+              - -with-rtsopts=-N
       else:
-        ghc-options:
-        - -O2
-        - -threaded
-        - -rtsopts
-        - -with-rtsopts=-N
-        dependencies:
-        - network
+        when:
+          - condition: flag(devel)
+            then:
+              ghc-options:
+              - -rtsopts
+              - -threaded
+              - -with-rtsopts=-N
+            else:
+              ghc-options:
+              - -O2
+              - -rtsopts
+              - -threaded
+              - -with-rtsopts=-N
